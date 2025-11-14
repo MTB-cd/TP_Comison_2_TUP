@@ -1,5 +1,5 @@
 const mysql = require("mysql2");
-
+//db
 // Creo la conexion a la db
 //// Se crea un pool de conexiones para reutilizar conexiones activas a la base de datos.
 // Esto mejora el rendimiento y evita crear una nueva conexión por cada solicitud.
