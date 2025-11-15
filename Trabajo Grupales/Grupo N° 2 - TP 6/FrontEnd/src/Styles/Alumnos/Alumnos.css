@@ -1,0 +1,55 @@
+/* Fondo oscuro detrás del modal */
+.custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Caja modal */
+.custom-modal {
+  width: 450px;
+  background: #1f1f1f;
+  color: white;
+  border-radius: 10px;
+  padding: 20px;
+  animation: fadeIn 0.25s ease;
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.15);
+}
+
+/* Encabezado de modal */
+.custom-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #444;
+  padding-bottom: 10px;
+}
+
+/* Cuerpo del modal */
+.custom-modal-body {
+  margin-top: 15px;
+}
+
+/* Animación suave de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Botones */
+.btn-close {
+  filter: invert(1);
+}

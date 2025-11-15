@@ -1,3 +1,9 @@
-const useAuthStore = () => {};
+import { create } from 'zustand';
 
-export default useAuthStore;
+export const useAuthStore = create((set) => ({
+  user: null,
+  token: null,
+  setUser: (user) => set({ user }),
+  setToken: (token) => set({ token }),
+  logout: () => set({ user: null, token: null }),
+}));
