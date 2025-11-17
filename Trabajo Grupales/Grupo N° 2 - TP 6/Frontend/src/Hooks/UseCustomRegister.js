@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import api from '../Services/Api';
 
 const useCustomRegister = () => {
   const [usuario, setUsuario] = useState('');
@@ -53,41 +54,30 @@ const useCustomRegister = () => {
     setError(null);
 
     try {
-      const resp = await fetch('http://localhost:3000/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          usuario,
-          contraseña: password,
-          email,
-          nombreAlumno,
-          curso,
-          dni
-        })
+      const response = await api.post('/auth/register', {
+        usuario,
+        contraseña: password,
+        email,
+        nombreAlumno,
+        curso,
+        dni
       });
 
-      const data = await resp.json();
+      setMensaje(response.data.message || 'Registro exitoso');
 
-      if (resp.ok) {
-        setMensaje(data.message || 'Registro exitoso');
+      // Limpiar campos
+      setUsuario('');
+      setPassword('');
+      setEmail('');
+      setNombreAlumno('');
+      setCurso('');
+      setDni('');
 
-        // Limpiar campos
-        setUsuario('');
-        setPassword('');
-        setEmail('');
-        setNombreAlumno('');
-        setCurso('');
-        setDni('');
-
-        return { success: true, data };
-      } else {
-        setError(data.message || 'Error al registrarse');
-        return { success: false, error: data.message };
-      }
-    // eslint-disable-next-line no-unused-vars
+      return { success: true, data: response.data };
     } catch (err) {
-      const msg = 'Error de red o servidor';
+      const msg = err.response?.data?.message || 'Error de red o servidor';
       setError(msg);
+      console.error('Error al registrar usuario:', err);
       return { success: false, error: msg };
     } finally {
       setLoading(false);

@@ -1,11 +1,10 @@
--- Creación de la base de datos
-CREATE DATABASE IF NOT EXISTS biblioteca;
+CREATE DATABASE IF NOT EXISTS biblioteco;
 USE biblioteca;
 
 -- Tabla: usuarios
 CREATE TABLE usuarios (
     usuario_id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_usuario VARCHAR(50) NOT NULL,
+    nombre_usuario VARCHAR(50) UNIQUE NOT NULL,
     contrasena VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     estado_usuario TINYINT NOT NULL DEFAULT 1,
@@ -55,24 +54,14 @@ CREATE TABLE prestamos (
     INDEX idx_estado (estado)
 );
 
--- Datos de ejemplo (opcional)
--- Insertar usuarios de ejemplo
-INSERT INTO usuarios (nombre_usuario, contrasena, email, rol) VALUES
-('admin', '$2y$10$ejemplo_hash_password', 'admin@biblioteca.com', 'administrador'),
-('bibliotecario', '$2y$10$ejemplo_hash_password', 'biblio@biblioteca.com', 'bibliotecario');
-
--- Insertar libros de ejemplo
 INSERT INTO libros (titulo, autor, categoria, ejemplares_disponibles) VALUES
 ('Cien años de soledad', 'Gabriel García Márquez', 'Ficción', 5),
-('Don Quijote de la Mancha', 'Miguel de Cervantes', 'Clásicos', 3),
-('El Principito', 'Antoine de Saint-Exupéry', 'Infantil', 7);
+('Don Quijote de la Mancha', 'Miguel de Cervantes', 'Clásicos', 3);
 
--- Insertar alumnos de ejemplo
-INSERT INTO alumnos (nombre, curso, dni, usuario_id) VALUES
-('Juan Pérez', '5to Año', '12345678', 1),
-('María González', '4to Año', '87654321', 2);
+INSERT INTO usuarios (usuario_id, nombre_usuario, contrasena, email, estado_usuario, rol)
+VALUES (3, 'admin', 'AdminSegura123!', 'admin@biblioteca.com', 1, 'admin');
+-- AdminSegura123! --
 
--- Insertar préstamos de ejemplo
-INSERT INTO prestamos (alumno_id, libro_id, fecha_prestamo, estado) VALUES
-(1, 1, '2024-11-01', 'prestado'),
-(2, 2, '2024-11-10', 'prestado');
+UPDATE usuarios
+SET contrasena = '$2b$10$fcZ5WhyiD75eJ5bnyUToa.OVn9xkfnr6eqo1xBenszFHgHqMJrlAm'
+WHERE usuario_id = 3;
